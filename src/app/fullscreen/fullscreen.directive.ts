@@ -1,14 +1,5 @@
 import { DOCUMENT } from '@angular/common';
-import {
-  Directive,
-  ElementRef,
-  EventEmitter,
-  HostBinding,
-  HostListener,
-  Inject,
-  Input,
-  Output,
-} from '@angular/core';
+import { Directive, ElementRef, EventEmitter, HostBinding, HostListener, Inject, Input, Output } from '@angular/core';
 
 export interface FullscreenTransition {
   isFullscreen: boolean;
@@ -17,7 +8,7 @@ export interface FullscreenTransition {
 
 @Directive({
   selector: '[fullscreen]',
-  exportAs: 'fullscreen',
+  exportAs: 'fullscreen'
 })
 export class FullscreenDirective {
   private element!: HTMLElement;
@@ -31,9 +22,7 @@ export class FullscreenDirective {
     } else if (element === '') {
       this.element = this.doc.documentElement;
     } else {
-      throw new Error(
-        `Only type HTMLElement or string allowed, got "${typeof element}".`
-      );
+      throw new Error(`Only type HTMLElement or string allowed, got "${typeof element}".`);
     }
   }
 
@@ -85,16 +74,8 @@ export class FullscreenDirective {
     await this.enterFullscreen(elem);
   }
 
-  private async exitDocumentFullscreen() {
-    await this.exitFullscreen();
-  }
-
   private async enterElementFullscreen(elem: HTMLElement) {
     await this.enterFullscreen(elem);
-  }
-
-  private async exitElementFullscreen() {
-    await this.exitFullscreen();
   }
 
   private async enterFullscreen(elem: HTMLElement) {
