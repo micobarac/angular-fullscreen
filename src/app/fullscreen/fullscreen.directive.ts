@@ -67,10 +67,8 @@ export class FullscreenDirective {
   }
 
   async exit() {
-    if (this.fullscreen) {
-      await this.exitElementFullscreen();
-    } else {
-      await this.exitDocumentFullscreen();
+    if (this.isFullscreen) {
+      await this.exitFullscreen();
     }
   }
 
@@ -100,14 +98,14 @@ export class FullscreenDirective {
   }
 
   private async enterFullscreen(elem: HTMLElement) {
-    await (elem.requestFullscreen?.() ||
+    await ((elem as any).requestFullscreen?.() ||
       (elem as any).webkitRequestFullscreen?.() ||
       (elem as any).mozRequestFullScreen?.() ||
       (elem as any).msRequestFullscreen?.());
   }
 
   private async exitFullscreen() {
-    await (this.doc.exitFullscreen?.() ||
+    await ((this.doc as any).exitFullscreen?.() ||
       (this.doc as any).webkitExitFullscreen?.() ||
       (this.doc as any).mozCancelFullScreen?.() ||
       (this.doc as any).msExitFullscreen?.());
@@ -115,7 +113,7 @@ export class FullscreenDirective {
 
   private isFullscreenEnabled(): boolean {
     return !!(
-      this.doc.fullscreenElement ||
+      (this.doc as any).fullscreenElement ||
       (this.doc as any).webkitFullscreenElement ||
       (this.doc as any).mozFullScreenElement ||
       (this.doc as any).msFullscreenElement
